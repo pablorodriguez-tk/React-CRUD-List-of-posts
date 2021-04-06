@@ -7,12 +7,13 @@ import {
   Button,
   IconButton,
 } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
 import { ElevationScroll } from "../Header";
+import DrawerLeft from "./Drawer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    height: 50,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <React.Fragment className={classes.root}>
       <ElevationScroll>
         <AppBar position="fixed">
           <Toolbar>
@@ -35,7 +36,7 @@ const Header = () => {
               color="inherit"
               aria-label="menu"
             >
-              <MenuIcon />
+              <DrawerLeft />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
               Blog
@@ -44,7 +45,7 @@ const Header = () => {
           </Toolbar>
         </AppBar>
       </ElevationScroll>
-    </div>
+    </React.Fragment>
   );
 };
 

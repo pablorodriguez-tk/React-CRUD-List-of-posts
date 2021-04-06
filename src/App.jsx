@@ -3,14 +3,22 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer";
 import { Header } from "./components/Header";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, Grid } from "@material-ui/core";
 import PostsList from "./pages/PostsList";
 
 const App = () => {
   return (
-    <div>
-      <React.Fragment>
-        <CssBaseline />
+    <React.Fragment>
+      <CssBaseline />
+      <Grid
+        container
+        xs={12}
+        md={12}
+        justify="center"
+        alignItems="center"
+        direction="column"
+        spacing={2}
+      >
         <Header />
         <BrowserRouter>
           <Switch>
@@ -20,8 +28,8 @@ const App = () => {
           </Switch>
         </BrowserRouter>
         <Footer />
-      </React.Fragment>
-    </div>
+      </Grid>
+    </React.Fragment>
   );
 };
 
