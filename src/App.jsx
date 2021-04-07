@@ -1,34 +1,23 @@
-import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+
 import "./App.css";
-import Footer from "./components/Footer";
-import { Header } from "./components/Header";
-import { CssBaseline, Grid } from "@material-ui/core";
-import PostsList from "./pages/PostsList";
+import { useAppContext } from "./AppContext";
+import MainContent from "./components/MainContent";
+import { getPosts } from "./api/jsonplaceholder";
 
 const App = () => {
+  const { posts, setPosts } = useAppContext();
+
+  useEffect(async () => {
+    // setIsLoading(true);
+    const response = await getPosts();
+    setPosts(response.posts);
+    // setIsLoading(false);
+  }, [setPosts]);
+
   return (
     <React.Fragment>
-      <CssBaseline />
-      <Grid
-        container
-        xs={12}
-        md={12}
-        justify="center"
-        alignItems="center"
-        direction="column"
-        spacing={2}
-      >
-        <Header />
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/">
-              <PostsList />
-            </Route>
-          </Switch>
-        </BrowserRouter>
-        <Footer />
-      </Grid>
+      <MainContent />
     </React.Fragment>
   );
 };

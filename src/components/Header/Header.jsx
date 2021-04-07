@@ -11,10 +11,6 @@ import { ElevationScroll } from "../Header";
 import DrawerLeft from "./Drawer";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    height: 50,
-  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -26,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
   const classes = useStyles();
   return (
-    <React.Fragment className={classes.root}>
+    <React.Fragment>
       <ElevationScroll>
         <AppBar position="fixed">
           <Toolbar>

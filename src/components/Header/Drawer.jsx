@@ -8,12 +8,14 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   menuButton: { marginTop: 5 },
 }));
 
 export default function DrawerLeft() {
+  const history = useHistory();
   const classes = useStyles();
   const [state, setState] = React.useState(false);
 
@@ -38,20 +40,22 @@ export default function DrawerLeft() {
       <List>
         <ListItem button key="Home">
           <ListItemIcon>
-            <InboxIcon /> <MailIcon />
+            <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
         <ListItem button key="Create/Edit post">
           <ListItemIcon>
-            <InboxIcon /> <MailIcon />
+            <MailIcon />
           </ListItemIcon>
-          <ListItemText primary="Create/Edit post" />
+          <ListItemText
+            primary="Create/Edit post"
+            // onClick={() => history.push("/")}
+          />
         </ListItem>
       </List>
     </div>
   );
-
   return (
     <div>
       {["left"].map((anchor) => (
