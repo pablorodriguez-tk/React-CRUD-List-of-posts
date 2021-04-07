@@ -15,3 +15,16 @@ export const getPosts = () =>
         hasError: true,
       };
     });
+
+export const deletePosts = (id) => {
+  axios
+    .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+    .then(() => {
+      return {
+        hasError: false,
+      };
+    })
+    .catch((error) => {
+      return { error: error.message, hasError: true };
+    });
+};

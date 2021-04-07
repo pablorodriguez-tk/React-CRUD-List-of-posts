@@ -1,4 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import GeneralButton from "../../components/Buttons";
+import { useAppContext } from "../../AppContext";
+import FolderIcon from "@material-ui/icons/Folder";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   List,
@@ -10,12 +14,7 @@ import {
   Typography,
   Divider,
   ListItemSecondaryAction,
-  IconButton,
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import FolderIcon from "@material-ui/icons/Folder";
-import { useAppContext } from "../../AppContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,16 +31,24 @@ const useStyles = makeStyles((theme) => ({
   title: {
     margin: theme.spacing(12, 2, 2),
   },
+  text: {
+    maxWidth: "85%",
+  },
 }));
 
 const PostList = () => {
   const classes = useStyles();
-  const { posts } = useAppContext();
+  const { posts, setPosts } = useAppContext();
 
-  // React router con link
-  /* <ListItem component={props => <Link {...props} to="/about" />}>
-  // ...
-</ListItem> */
+  const PostDeleteOnClick = (id) => {
+    setPosts(posts.filter((item) => item.id !== id));
+  };
+
+  const confirmDelete = (id) => {
+    if (window.confirm("Are you Sure?")) {
+      PostDeleteOnClick(id);
+    }
+  };
 
   return (
     <React.Fragment>
@@ -53,7 +60,12 @@ const PostList = () => {
           <List>
             {posts.map((post) => (
               <React.Fragment key={post.id}>
-                <ListItem button onClick={() => alert("VER")}>
+                <ListItem
+                  button
+                  className={classes.text}
+                  component={Link}
+                  to={`/post/${post.id}`}
+                >
                   <ListItemAvatar>
                     <Avatar>
                       <FolderIcon />
@@ -61,28 +73,19 @@ const PostList = () => {
                   </ListItemAvatar>
                   <ListItemText primary={post.title} />
                   <ListItemSecondaryAction>
-                    <IconButton>
-                      <EditIcon
-                        color="primary"
-                        fontSize="medium"
-                        aria-label="edit"
-                        onClick={() => {
-                          alert("EDITAR");
-                        }}
-                      />
-                    </IconButton>
-                    <IconButton>
-                      <DeleteIcon
-                        color="secondary"
-                        fontSize="medium"
-                        aria-label="delete"
-                        onClick={() => {
-                          alert("BORRAR");
-                        }}
-                      />
-                    </IconButton>
+                    <GeneralButton
+                      color="primary"
+                      type="edit"
+                      to={`/edit/${post.id}`}
+                    />
+                    <GeneralButton
+                      color="secondary"
+                      type="delete"
+                      onClick={() => confirmDelete(post.id)}
+                    />
                   </ListItemSecondaryAction>
                 </ListItem>
+
                 <Divider />
               </React.Fragment>
             ))}
