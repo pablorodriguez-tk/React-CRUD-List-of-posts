@@ -15,6 +15,7 @@ import {
   Divider,
   ListItemSecondaryAction,
 } from "@material-ui/core";
+import AlertDialog from "../../components/AlertDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,17 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PostList = () => {
   const classes = useStyles();
-  const { posts, setPosts } = useAppContext();
-
-  const PostDeleteOnClick = (id) => {
-    setPosts(posts.filter((item) => item.id !== id));
-  };
-
-  const confirmDelete = (id) => {
-    if (window.confirm("Are you Sure?")) {
-      PostDeleteOnClick(id);
-    }
-  };
+  const { posts } = useAppContext();
 
   return (
     <React.Fragment>
@@ -78,21 +69,20 @@ const PostList = () => {
                       type="edit"
                       to={`/edit/${post.id}`}
                     />
-                    <GeneralButton
+                    <AlertDialog
                       color="secondary"
                       type="delete"
-                      onClick={() => confirmDelete(post.id)}
+                      to="/"
+                      id={post.id}
                     />
                   </ListItemSecondaryAction>
                 </ListItem>
-
                 <Divider />
               </React.Fragment>
             ))}
           </List>
         </div>
       </Grid>
-      )
     </React.Fragment>
   );
 };
