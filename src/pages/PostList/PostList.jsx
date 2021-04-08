@@ -30,7 +30,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   title: {
-    margin: theme.spacing(12, 2, 2),
+    margin: theme.spacing(2, 2, 2),
+    textAlign: "center",
+    textDecorationLine: "underline",
   },
   text: {
     maxWidth: "85%",
@@ -44,7 +46,7 @@ const PostList = () => {
   return (
     <React.Fragment>
       <Grid className={classes.root}>
-        <Typography variant="h6" className={classes.title}>
+        <Typography variant="h3" className={classes.title}>
           Posts List
         </Typography>
         <div className={classes.demo}>

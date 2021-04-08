@@ -7,6 +7,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import GeneralButton from "../Buttons";
 import { useAppContext } from "../../AppContext";
+import { deletePosts } from "../../api/jsonplaceholder";
 
 const AlertDialog = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -23,6 +24,7 @@ const AlertDialog = (props) => {
 
   const handleAgree = () => {
     setOpen(false);
+    deletePosts(props.id);
     setPosts(posts.filter((item) => item.id !== props.id));
   };
 

@@ -28,3 +28,17 @@ export const deletePosts = (id) => {
       return { error: error.message, hasError: true };
     });
 };
+
+export const getPostById = (id) => {
+  axios
+    .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+    .then((response) => {
+      return {
+        post: response.data,
+        hasError: false,
+      };
+    })
+    .catch((error) => {
+      return { error: error.message, hasError: true };
+    });
+};

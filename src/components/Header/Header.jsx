@@ -24,7 +24,7 @@ const Header = () => {
   return (
     <React.Fragment>
       <ElevationScroll>
-        <AppBar position="fixed">
+        <AppBar position="relative">
           <Toolbar>
             <IconButton
               edge="start"

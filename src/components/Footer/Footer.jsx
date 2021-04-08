@@ -1,9 +1,17 @@
 import { AppBar, Container, Toolbar, Typography } from "@material-ui/core";
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+  footer: {
+    marginTop: "auto",
+  },
+}));
 
 const Footer = () => {
+  const classes = useStyles();
   return (
-    <AppBar position="static" color="primary">
+    <AppBar position="static" color="primary" className={classes.footer}>
       <Container maxWidth="md">
         <Toolbar>
           <Typography variant="body1" color="inherit">

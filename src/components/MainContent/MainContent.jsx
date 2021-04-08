@@ -6,8 +6,14 @@ import PostList from "../../pages/PostList";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PostEditAndCreate from "../../pages/PostEditAndCreate";
 import Post from "../../pages/Post/Post";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+  body: {},
+}));
 
 const MainContent = () => {
+  const classes = useStyles();
   return (
     <React.Fragment>
       <CssBaseline />
