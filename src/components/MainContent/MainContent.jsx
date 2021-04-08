@@ -6,14 +6,8 @@ import PostList from "../../pages/PostList";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PostEditAndCreate from "../../pages/PostEditAndCreate";
 import Post from "../../pages/Post/Post";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles(() => ({
-  body: {},
-}));
 
 const MainContent = () => {
-  const classes = useStyles();
   return (
     <React.Fragment>
       <CssBaseline />
@@ -29,8 +23,8 @@ const MainContent = () => {
           <Switch>
             <Route exact path="/" component={PostList}></Route>
             <Route path="/create" component={PostEditAndCreate}></Route>
-            <Route path="/post/:id" component={Post}></Route>
-            <Route path="/edit/:id" component={PostEditAndCreate}></Route>
+            <Route path="/post/:postId" component={Post}></Route>
+            <Route path="/edit/:postId" component={PostEditAndCreate}></Route>
           </Switch>
         </BrowserRouter>
         <Footer />

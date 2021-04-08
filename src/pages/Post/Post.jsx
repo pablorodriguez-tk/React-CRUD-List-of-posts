@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { useAppContext } from "../../AppContext";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { getPostById } from "../../api/jsonplaceholder";
 
 const useStyles = makeStyles({
   root: {
@@ -21,16 +25,34 @@ const useStyles = makeStyles({
     marginBottom: 10,
   },
   title: {
-    fontSize: 14,
+    fontSize: 20,
+    marginBottom: 15,
   },
-  pos: {
-    marginBottom: 12,
-  },
+  body: {},
 });
 
 const Post = () => {
+  const { postId } = useParams();
+  const { posts } = useAppContext();
+  const [post, setPost] = useState();
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+
+  useEffect(() => {
+    // const findPost = posts.find(({ id }) => id == postId);
+
+    // if (findPost) return setPost(findPost);
+
+    const getPostId = async (props) => {
+      const response = await getPostById(postId);
+
+      // response.hasError ? "hay un error" : setPost(response.post);
+    };
+    getPostId();
+    // if (!findPost) {
+    //   const response = getPostById(postId);
+    console.log(post);
+    // }
+  }, [postId]);
 
   return (
     <React.Fragment>
@@ -39,27 +61,15 @@ const Post = () => {
       </Typography>
       <Card className={classes.root}>
         <CardContent>
-          <Typography
-            className={classes.title}
-            color="textSecondary"
-            gutterBottom
-          >
-            Word of the Day
+          <Typography variant="h5" component="h2" className={classes.title}>
+            {/* {post.title} */}
           </Typography>
-          <Typography variant="h5" component="h2">
-            be{bull}nev{bull}o{bull}lent
-          </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            adjective
-          </Typography>
-          <Typography variant="body2" component="p">
-            well meaning and kindly.
-            <br />
-            {'"a benevolent smile"'}
+          <Typography variant="body2" component="p" className={classes.body}>
+            {/* {post.body} */}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <Button size="small">Go back</Button>
         </CardActions>
       </Card>
     </React.Fragment>

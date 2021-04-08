@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import GeneralButton from "../../components/Buttons";
 import { useAppContext } from "../../AppContext";
 import FolderIcon from "@material-ui/icons/Folder";
+import { getPosts } from "../../api/jsonplaceholder";
 import { makeStyles } from "@material-ui/core/styles";
+import Spinner from "../../components/Spinner";
 import {
   List,
   ListItem,
@@ -41,50 +43,67 @@ const useStyles = makeStyles((theme) => ({
 
 const PostList = () => {
   const classes = useStyles();
-  const { posts } = useAppContext();
+  const { posts, setPosts, loading, setLoading } = useAppContext();
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setLoading(true);
+      const response = await getPosts();
+      setPosts(response.posts);
+      setLoading(false);
+    };
+    fetchPosts();
+  }, []);
 
   return (
     <React.Fragment>
-      <Grid className={classes.root}>
-        <Typography variant="h3" className={classes.title}>
-          Posts List
-        </Typography>
-        <div className={classes.demo}>
-          <List>
-            {posts.map((post) => (
-              <React.Fragment key={post.id}>
-                <ListItem
-                  button
-                  className={classes.text}
-                  component={Link}
-                  to={`/post/${post.id}`}
-                >
-                  <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={post.title} />
-                  <ListItemSecondaryAction>
-                    <GeneralButton
-                      color="primary"
-                      type="edit"
-                      to={`/edit/${post.id}`}
-                    />
-                    <AlertDialog
-                      color="secondary"
-                      type="delete"
-                      to="/"
-                      id={post.id}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-                <Divider />
-              </React.Fragment>
-            ))}
-          </List>
-        </div>
-      </Grid>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <React.Fragment>
+          <Grid className={classes.root}>
+            <Typography variant="h3" className={classes.title}>
+              Posts List
+            </Typography>
+            <div className={classes.demo}>
+              <List>
+                {posts.map((post) => (
+                  <React.Fragment key={post.id}>
+                    <ListItem
+                      button
+                      className={classes.text}
+                      component={Link}
+                      to={`/post/${post.id}`}
+                      state={post.id}
+                    >
+                      <ListItemAvatar>
+                        <Avatar>
+                          <FolderIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={post.title} />
+                      <ListItemSecondaryAction>
+                        <GeneralButton
+                          color="primary"
+                          type="edit"
+                          to={`/edit/${post.id}`}
+                        />
+                        <AlertDialog
+                          color="secondary"
+                          type="delete"
+                          to="/"
+                          id={post.id}
+                        />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                    <Divider />
+                  </React.Fragment>
+                ))}
+              </List>
+            </div>
+          </Grid>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
