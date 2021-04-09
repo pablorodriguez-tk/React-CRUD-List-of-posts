@@ -1,22 +1,23 @@
 import axios from "axios";
 
-export const getPosts = () =>
-  axios
-    .get("https://jsonplaceholder.typicode.com/posts")
-    .then((response) => {
-      return {
-        posts: response.data,
-        hasError: false,
-      };
-    })
-    .catch((error) => {
-      return {
-        error: error.message,
-        hasError: true,
-      };
-    });
+export const getPosts = async () => {
+  try {
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/posts"
+    );
+    return {
+      posts: response.data,
+      hasError: false,
+    };
+  } catch (error) {
+    return {
+      error: error.message,
+      hasError: true,
+    };
+  }
+};
 
-export const deletePosts = (id) => {
+export const deletePosts = (id) =>
   axios
     .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
     .then(() => {
@@ -27,9 +28,8 @@ export const deletePosts = (id) => {
     .catch((error) => {
       return { error: error.message, hasError: true };
     });
-};
 
-export const getPostById = (id) => {
+export const getPostById = (id) =>
   axios
     .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
     .then((response) => {
@@ -41,4 +41,3 @@ export const getPostById = (id) => {
     .catch((error) => {
       return { error: error.message, hasError: true };
     });
-};

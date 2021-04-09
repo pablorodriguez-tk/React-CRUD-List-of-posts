@@ -45,14 +45,16 @@ const PostList = () => {
   const classes = useStyles();
   const { posts, setPosts, loading, setLoading } = useAppContext();
 
+  const handleGetPosts = async () => {
+    const response = await getPosts();
+    setPosts(response.posts);
+    console.log(response.posts);
+  };
+
   useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      const response = await getPosts();
-      setPosts(response.posts);
-      setLoading(false);
-    };
-    fetchPosts();
+    setLoading(true);
+    handleGetPosts();
+    setLoading(false);
   }, []);
 
   return (
