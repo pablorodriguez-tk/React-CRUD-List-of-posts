@@ -27,7 +27,7 @@ const MainContent = () => {
             <Route path="/edit/:postId" component={PostEditAndCreate}></Route>
           </Switch>
         </BrowserRouter>
-        <Footer />
+        {/* <Footer /> */}
       </Grid>
     </React.Fragment>
   );

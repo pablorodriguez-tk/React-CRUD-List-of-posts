@@ -14,6 +14,7 @@ import Spinner from "../../components/Spinner";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    maxWidth: "60%",
   },
   bullet: {
     display: "inline-block",
