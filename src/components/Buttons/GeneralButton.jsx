@@ -1,7 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { IconButton, ButtonBase } from "@material-ui/core";
 import Icon from "@material-ui/core/Icon";
-import { Link } from "react-router-dom";
 
 const WrappedIcon = (props) => <Icon {...props} />;
 WrappedIcon.muiName = Icon.muiName;

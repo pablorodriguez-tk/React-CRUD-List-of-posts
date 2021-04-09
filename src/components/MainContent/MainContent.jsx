@@ -1,11 +1,11 @@
 import React from "react";
 import Footer from "../Footer";
-import { Header } from "../Header";
-import { CssBaseline, Grid } from "@material-ui/core";
-import PostList from "../../pages/PostList";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PostEditAndCreate from "../../pages/PostEditAndCreate";
 import Post from "../../pages/Post/Post";
+import PostList from "../../pages/PostList";
+import { Header } from "../Header";
+import { CssBaseline, Grid } from "@material-ui/core";
 
 const MainContent = () => {
   return (

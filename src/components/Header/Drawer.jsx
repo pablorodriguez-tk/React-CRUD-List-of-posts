@@ -1,14 +1,16 @@
 import React from "react";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import { Link } from "react-router-dom";
+import {
+  List,
+  SwipeableDrawer,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  makeStyles,
+} from "@material-ui/core";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
-import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   menuButton: { marginTop: 5 },

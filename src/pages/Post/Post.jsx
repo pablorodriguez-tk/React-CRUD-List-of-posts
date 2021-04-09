@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import { useAppContext } from "../../AppContext";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useAppContext } from "../../AppContext";
 import { getPostById } from "../../api/jsonplaceholder";
 import Spinner from "../../components/Spinner";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import GeneralButton from "../../components/Buttons";
 import AlertDialog from "../../components/AlertDialog";
+import {
+  Button,
+  Typography,
+  CardContent,
+  CardActions,
+  Card,
+  makeStyles,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -51,16 +53,17 @@ const Post = () => {
   };
 
   useEffect(() => {
-    const findPost = posts.find(({ id }) => id == postId);
+    const findPost = posts.find(({ id }) => id === parseInt(postId));
     if (findPost) {
       setPost(findPost);
     }
     if (!findPost) {
       handeGetPostById(postId);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleClick = () => {
+  const handleGoBack = () => {
     history.goBack();
   };
 
@@ -87,7 +90,7 @@ const Post = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small" onClick={handleClick}>
+              <Button size="small" onClick={handleGoBack}>
                 Go back
               </Button>
               <GeneralButton
@@ -95,7 +98,12 @@ const Post = () => {
                 type="edit"
                 to={`/edit/${post.id}`}
               />
-              <AlertDialog color="secondary" type="delete" id={post.id} />
+              <AlertDialog
+                color="secondary"
+                type="delete"
+                id={post.id}
+                back={true}
+              />
             </CardActions>
           </Card>
         </React.Fragment>

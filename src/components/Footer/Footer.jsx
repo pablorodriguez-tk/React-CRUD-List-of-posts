@@ -1,6 +1,11 @@
-import { AppBar, Container, Toolbar, Typography } from "@material-ui/core";
+import {
+  AppBar,
+  Container,
+  Toolbar,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   footer: {

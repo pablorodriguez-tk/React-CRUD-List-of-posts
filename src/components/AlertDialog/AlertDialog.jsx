@@ -1,14 +1,16 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import GeneralButton from "../Buttons";
 import { useAppContext } from "../../AppContext";
 import { deletePosts } from "../../api/jsonplaceholder";
 import { useHistory } from "react-router-dom";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@material-ui/core";
 
 const AlertDialog = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -27,7 +29,7 @@ const AlertDialog = (props) => {
     setOpen(false);
     await deletePosts(props.id);
     setPosts(posts.filter((item) => item.id !== props.id));
-    if (!props.back) {
+    if (props.back === true) {
       history.goBack();
       history.goBack();
     }

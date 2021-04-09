@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import GeneralButton from "../../components/Buttons";
+import AlertDialog from "../../components/AlertDialog";
 import { useAppContext } from "../../AppContext";
 import FolderIcon from "@material-ui/icons/Folder";
 import { getPosts } from "../../api/jsonplaceholder";
-import { makeStyles } from "@material-ui/core/styles";
 import Spinner from "../../components/Spinner";
 import {
   List,
@@ -16,8 +16,8 @@ import {
   Typography,
   Divider,
   ListItemSecondaryAction,
+  makeStyles,
 } from "@material-ui/core";
-import AlertDialog from "../../components/AlertDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,13 +48,13 @@ const PostList = () => {
   const handleGetPosts = async () => {
     const response = await getPosts();
     setPosts(response.posts);
-    console.log(response.posts);
   };
 
   useEffect(() => {
     setLoading(true);
     handleGetPosts();
     setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
