@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import { getPostById } from "../../api/jsonplaceholder";
 import Spinner from "../../components/Spinner";
 import { Link, useHistory } from "react-router-dom";
+import GeneralButton from "../../components/Buttons";
+import AlertDialog from "../../components/AlertDialog";
 
 const useStyles = makeStyles({
   root: {
@@ -88,6 +90,12 @@ const Post = () => {
               <Button size="small" onClick={handleClick}>
                 Go back
               </Button>
+              <GeneralButton
+                color="primary"
+                type="edit"
+                to={`/edit/${post.id}`}
+              />
+              <AlertDialog color="secondary" type="delete" id={post.id} />
             </CardActions>
           </Card>
         </React.Fragment>

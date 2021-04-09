@@ -8,10 +8,11 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import GeneralButton from "../Buttons";
 import { useAppContext } from "../../AppContext";
 import { deletePosts } from "../../api/jsonplaceholder";
+import { useHistory } from "react-router-dom";
 
 const AlertDialog = (props) => {
   const [open, setOpen] = React.useState(false);
-
+  const history = useHistory();
   const { posts, setPosts } = useAppContext();
 
   const handleClickOpen = () => {
@@ -22,10 +23,14 @@ const AlertDialog = (props) => {
     setOpen(false);
   };
 
-  const handleAgree = () => {
+  const handleAgree = async () => {
     setOpen(false);
-    deletePosts(props.id);
+    await deletePosts(props.id);
     setPosts(posts.filter((item) => item.id !== props.id));
+    if (!props.back) {
+      history.goBack();
+      history.goBack();
+    }
   };
 
   return (
@@ -47,7 +52,7 @@ const AlertDialog = (props) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete Post ?
+            You sure to permanently delete post {props.id}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

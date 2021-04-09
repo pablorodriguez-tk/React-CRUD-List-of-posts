@@ -93,8 +93,8 @@ const PostList = () => {
                         <AlertDialog
                           color="secondary"
                           type="delete"
-                          to="/"
                           id={post.id}
+                          back={false}
                         />
                       </ListItemSecondaryAction>
                     </ListItem>
