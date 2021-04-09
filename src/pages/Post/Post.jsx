@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getPostById } from "../../api/jsonplaceholder";
 import Spinner from "../../components/Spinner";
+import { Link, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -34,6 +35,7 @@ const useStyles = makeStyles({
 });
 
 const Post = () => {
+  const history = useHistory();
   const { postId } = useParams();
   const { loading, posts, setLoading } = useAppContext();
   const [post, setPost] = useState([]);
@@ -55,6 +57,10 @@ const Post = () => {
       handeGetPostById(postId);
     }
   }, []);
+
+  const handleClick = () => {
+    history.goBack();
+  };
 
   return (
     <React.Fragment>
@@ -79,7 +85,9 @@ const Post = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small">Go back</Button>
+              <Button size="small" onClick={handleClick}>
+                Go back
+              </Button>
             </CardActions>
           </Card>
         </React.Fragment>

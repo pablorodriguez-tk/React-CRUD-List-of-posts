@@ -8,6 +8,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   menuButton: { marginTop: 5 },
@@ -36,13 +37,18 @@ export default function DrawerLeft() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItem button key="Home">
+        <ListItem button key="Home" component={Link} to={"/"}>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem button key="Create/Edit post">
+        <ListItem
+          button
+          key="Create/Edit post"
+          component={Link}
+          to={`/edit/create`}
+        >
           <ListItemIcon>
             <MailIcon />
           </ListItemIcon>

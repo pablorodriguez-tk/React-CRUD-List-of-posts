@@ -18,8 +18,8 @@ const MainContent = () => {
         direction="column"
         spacing={2}
       >
-        <Header />
         <BrowserRouter>
+          <Header />
           <Switch>
             <Route exact path="/" component={PostList}></Route>
             <Route path="/create" component={PostEditAndCreate}></Route>
