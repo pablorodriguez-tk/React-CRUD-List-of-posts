@@ -30,8 +30,7 @@ const AlertDialog = (props) => {
     await deletePosts(props.id);
     setPosts(posts.filter((item) => item.id !== props.id));
     if (props.back === true) {
-      history.goBack();
-      history.goBack();
+      history.push("/");
     }
   };
 

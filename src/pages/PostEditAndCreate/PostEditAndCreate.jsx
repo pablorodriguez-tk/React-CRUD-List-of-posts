@@ -51,28 +51,33 @@ const PostEditAndCreate = (props) => {
 
   const isCreate = props.match.params.postId === "create";
 
-  const handleCreate = async () => {
-    const createData = { ...data, userId: 1 };
-    const response = await createPost(createData);
-    setPosts((prevPosts) => [response.createdPost, ...prevPosts]);
-    history.goBack();
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const handleCreate = async () => {
+      const createData = { ...data, userId: 1 };
+      const response = await createPost(createData);
+      setPosts((prevPosts) => [response.createdPost, ...prevPosts]);
+      history.push("/");
+    };
+
+    const handleUpdate = async () => {
+      const response = await updatePost(data, post);
+      console.log(response.updatedPost);
+      setPosts((prevPosts) => {
+        const prevPostIdx = prevPosts.findIndex((p) => p.id === post.id);
+        prevPosts[prevPostIdx] = response.updatedPost;
+        return [...prevPosts];
+      });
+      history.push("/");
+    };
+
     if (post) {
-      updatePost(data, post);
-      // setPosts(data);
-      // console.log(data);
-      // console.log(posts);
-      history.goBack();
-      //TODO: terminar post y update
+      handleUpdate();
+      console.log(posts);
     } else {
       handleCreate();
     }
-
-    console.log(data.title, data.body);
   };
 
   const handleInputChange = (event) => {
