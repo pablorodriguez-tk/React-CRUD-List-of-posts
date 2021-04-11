@@ -1,5 +1,5 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import {
   Avatar,
   CssBaseline,
@@ -11,6 +11,8 @@ import {
   Button,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
+import { createPost, updatePost } from "../../api/jsonplaceholder";
+import { useAppContext } from "../../AppContext";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,9 +37,49 @@ const useStyles = makeStyles((theme) => ({
 const PostEditAndCreate = (props) => {
   const classes = useStyles();
   const history = useHistory();
+  const { post } = useLocation();
+  const { posts, setPosts } = useAppContext();
+
+  const [data, setData] = useState({
+    title: post ? post.title : "",
+    body: post ? post.body : "",
+  });
 
   const handleGoBack = () => {
     history.goBack();
+  };
+
+  const isCreate = props.match.params.postId === "create";
+
+  const handleCreate = async () => {
+    const createData = { ...data, userId: 1 };
+    const response = await createPost(createData);
+    setPosts((prevPosts) => [response.createdPost, ...prevPosts]);
+    history.goBack();
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (post) {
+      updatePost(data, post);
+      // setPosts(data);
+      // console.log(data);
+      // console.log(posts);
+      history.goBack();
+      //TODO: terminar post y update
+    } else {
+      handleCreate();
+    }
+
+    console.log(data.title, data.body);
+  };
+
+  const handleInputChange = (event) => {
+    setData({
+      ...data,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
@@ -48,9 +90,9 @@ const PostEditAndCreate = (props) => {
           <EditIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {props.match.params.postId === "create" ? "Create Post" : "Edit Post"}
+          {isCreate ? "Create Post" : "Edit Post"}
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -58,20 +100,25 @@ const PostEditAndCreate = (props) => {
             fullWidth
             id="Post Title"
             label="Post Title"
-            name="Post Title"
+            name="title"
             autoFocus
             type="text"
+            multiline={true}
+            onChange={handleInputChange}
+            value={data.title}
           />
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            name="Post Details"
-            label="Post Details"
+            id="Post Body"
+            label="Post Body"
+            name="body"
             type="text"
-            id="Post Details"
             multiline={true}
+            onChange={handleInputChange}
+            value={data.body}
           />
           <Grid container justify="space-between">
             <Grid item xs={3}>

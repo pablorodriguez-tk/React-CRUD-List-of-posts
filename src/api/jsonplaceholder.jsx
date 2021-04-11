@@ -41,3 +41,37 @@ export const deletePosts = async (id) => {
     return { error: error.message, hasError: true };
   }
 };
+
+export const createPost = async (data) => {
+  try {
+    const response = await axios.post(
+      `https://jsonplaceholder.typicode.com/posts/`,
+      data
+    );
+    return { hasError: false, createdPost: response.data };
+  } catch (error) {
+    return {
+      hasError: true,
+      error: error.message,
+    };
+  }
+};
+
+export const updatePost = async (data, post) => {
+  try {
+    const response = await axios.patch(
+      `https://jsonplaceholder.typicode.com/posts/${post.id}`,
+      data
+    );
+    console.log(response);
+    return {
+      hasError: false,
+      updatedPost: response.data,
+    };
+  } catch (error) {
+    return {
+      hasError: true,
+      error: error.message,
+    };
+  }
+};

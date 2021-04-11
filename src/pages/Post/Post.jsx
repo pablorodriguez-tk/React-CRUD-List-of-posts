@@ -96,7 +96,7 @@ const Post = () => {
               <GeneralButton
                 color="primary"
                 type="edit"
-                to={`/edit/${post.id}`}
+                to={{ pathname: `/edit/${post.id}`, post }}
               />
               <AlertDialog
                 color="secondary"

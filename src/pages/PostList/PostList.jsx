@@ -43,20 +43,8 @@ const useStyles = makeStyles((theme) => ({
 
 const PostList = () => {
   const classes = useStyles();
-  const { posts, setPosts, loading, setLoading } = useAppContext();
-
-  const handleGetPosts = async () => {
-    const response = await getPosts();
-    setPosts(response.posts);
-  };
-
-  useEffect(() => {
-    setLoading(true);
-    handleGetPosts();
-    setLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  const { posts, loading } = useAppContext();
+  console.log(posts);
   return (
     <React.Fragment>
       {loading ? (
@@ -88,7 +76,7 @@ const PostList = () => {
                         <GeneralButton
                           color="primary"
                           type="edit"
-                          to={`/edit/${post.id}`}
+                          to={{ pathname: `/edit/${post.id}`, post }}
                         />
                         <AlertDialog
                           color="secondary"
