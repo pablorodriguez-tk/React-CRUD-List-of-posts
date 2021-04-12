@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import {
   Avatar,
@@ -13,6 +13,7 @@ import {
 import EditIcon from "@material-ui/icons/Edit";
 import { createPost, updatePost } from "../../api/jsonplaceholder";
 import { useAppContext } from "../../AppContext";
+import { useForm, Controller } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,12 +39,12 @@ const PostEditAndCreate = (props) => {
   const classes = useStyles();
   const history = useHistory();
   const { post } = useLocation();
-  const { posts, setPosts } = useAppContext();
-
-  const [data, setData] = useState({
-    title: post ? post.title : "",
-    body: post ? post.body : "",
-  });
+  const { setPosts } = useAppContext();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const handleGoBack = () => {
     history.goBack();
@@ -51,19 +52,18 @@ const PostEditAndCreate = (props) => {
 
   const isCreate = props.match.params.postId === "create";
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const onSubmit = (input) => {
+    const inputData = { title: input.title, body: input.body };
 
     const handleCreate = async () => {
-      const createData = { ...data, userId: 1 };
+      const createData = { userId: 1, ...inputData };
       const response = await createPost(createData);
       setPosts((prevPosts) => [response.createdPost, ...prevPosts]);
       history.push("/");
     };
 
     const handleUpdate = async () => {
-      const response = await updatePost(data, post);
-      console.log(response.updatedPost);
+      const response = await updatePost(inputData, post);
       setPosts((prevPosts) => {
         const prevPostIdx = prevPosts.findIndex((p) => p.id === post.id);
         prevPosts[prevPostIdx] = response.updatedPost;
@@ -74,17 +74,9 @@ const PostEditAndCreate = (props) => {
 
     if (post) {
       handleUpdate();
-      console.log(posts);
     } else {
       handleCreate();
     }
-  };
-
-  const handleInputChange = (event) => {
-    setData({
-      ...data,
-      [event.target.name]: event.target.value,
-    });
   };
 
   return (
@@ -97,33 +89,49 @@ const PostEditAndCreate = (props) => {
         <Typography component="h1" variant="h5">
           {isCreate ? "Create Post" : "Edit Post"}
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="Post Title"
-            label="Post Title"
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <Controller
             name="title"
-            autoFocus
-            type="text"
-            multiline={true}
-            onChange={handleInputChange}
-            value={data.title}
+            control={control}
+            defaultValue={post ? post.title : ""}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Post Title"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                id="Post Title"
+                autoFocus
+                type="text"
+                multiline={true}
+                error={errors.title}
+                helperText={errors.title && "Este campo title es requerido"}
+              />
+            )}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="Post Body"
-            label="Post Body"
+          <Controller
             name="body"
-            type="text"
-            multiline={true}
-            onChange={handleInputChange}
-            value={data.body}
+            control={control}
+            defaultValue={post ? post.body : ""}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Post Body"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                id="Post Body"
+                type="text"
+                multiline={true}
+                error={errors.title}
+                helperText={errors.title && "Este campo body es requerido"}
+              />
+            )}
           />
           <Grid container justify="space-between">
             <Grid item xs={3}>

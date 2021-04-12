@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import GeneralButton from "../../components/Buttons";
 import AlertDialog from "../../components/AlertDialog";
 import { useAppContext } from "../../AppContext";
 import FolderIcon from "@material-ui/icons/Folder";
-import { getPosts } from "../../api/jsonplaceholder";
 import Spinner from "../../components/Spinner";
 import {
   List,
