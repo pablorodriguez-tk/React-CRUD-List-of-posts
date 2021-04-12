@@ -4,12 +4,15 @@ const AppContext = createContext(null); // Provider y Consumer
 const Provider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(null);
 
   const props = {
     posts,
     setPosts,
     loading,
     setLoading,
+    isSignedIn,
+    setIsSignedIn,
   };
 
   return <AppContext.Provider value={props}>{children}</AppContext.Provider>;

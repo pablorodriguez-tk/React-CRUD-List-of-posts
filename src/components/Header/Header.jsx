@@ -1,14 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-} from "@material-ui/core";
+import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
 import { ElevationScroll } from "../Header";
 import DrawerLeft from "./Drawer";
+import GoogleAuth from "../GoogleAuth";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -37,7 +32,7 @@ const Header = () => {
             <Typography variant="h6" className={classes.title}>
               Blog
             </Typography>
-            <Button color="inherit">Login</Button>
+            <GoogleAuth />
           </Toolbar>
         </AppBar>
       </ElevationScroll>
