@@ -66,7 +66,9 @@ const PostEditAndCreate = (props) => {
       const response = await updatePost(inputData, post);
       setPosts((prevPosts) => {
         const prevPostIdx = prevPosts.findIndex((p) => p.id === post.id);
+
         prevPosts[prevPostIdx] = response.updatedPost;
+        console.log(prevPosts);
         return [...prevPosts];
       });
       history.push("/");
@@ -95,9 +97,6 @@ const PostEditAndCreate = (props) => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <Controller
-            name="title"
-            control={control}
-            defaultValue={post ? post.title : ""}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -110,14 +109,15 @@ const PostEditAndCreate = (props) => {
                 type="text"
                 multiline={true}
                 error={errors.title}
-                helperText={errors.title && "Este campo title es requerido"}
+                helperText={errors.title && "Post title is required"}
               />
             )}
+            rules={{ required: true }}
+            name="title"
+            control={control}
+            defaultValue={post ? post.title : ""}
           />
           <Controller
-            name="body"
-            control={control}
-            defaultValue={post ? post.body : ""}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -128,10 +128,14 @@ const PostEditAndCreate = (props) => {
                 id="Post Body"
                 type="text"
                 multiline={true}
-                error={errors.title}
-                helperText={errors.title && "Este campo body es requerido"}
+                error={errors.body}
+                helperText={errors.body && "Post body is required"}
               />
             )}
+            rules={{ required: true }}
+            name="body"
+            control={control}
+            defaultValue={post ? post.body : ""}
           />
           <Grid container justify="space-between">
             <Grid item xs={3}>
