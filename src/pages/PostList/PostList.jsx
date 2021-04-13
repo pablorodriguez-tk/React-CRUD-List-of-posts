@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 const PostList = () => {
   const classes = useStyles();
-  const { posts, loading } = useAppContext();
+  const { posts, loading, isSignedIn } = useAppContext();
+
   return (
     <React.Fragment>
       {loading ? (
@@ -68,19 +69,23 @@ const PostList = () => {
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText primary={post.title} />
-                      <ListItemSecondaryAction>
-                        <GeneralButton
-                          color="primary"
-                          type="edit"
-                          to={{ pathname: `/edit/${post.id}`, post }}
-                        />
-                        <AlertDialog
-                          color="secondary"
-                          type="delete"
-                          id={post.id}
-                          back={false}
-                        />
-                      </ListItemSecondaryAction>
+                      {isSignedIn ? (
+                        <ListItemSecondaryAction>
+                          <GeneralButton
+                            color="primary"
+                            type="edit"
+                            to={{ pathname: `/edit/${post.id}`, post }}
+                          />
+                          <AlertDialog
+                            color="secondary"
+                            type="delete"
+                            id={post.id}
+                            back={false}
+                          />
+                        </ListItemSecondaryAction>
+                      ) : (
+                        ""
+                      )}
                     </ListItem>
                     <Divider />
                   </React.Fragment>

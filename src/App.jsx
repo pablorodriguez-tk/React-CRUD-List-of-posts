@@ -12,6 +12,7 @@ import Post from "./pages/Post/Post";
 import PostEditAndCreate from "./pages/PostEditAndCreate";
 import PostList from "./pages/PostList";
 import { makeStyles } from "@material-ui/core/styles";
+import ErrorPage from "./pages/ErrorPage";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -52,7 +53,8 @@ const App = () => {
           <Header />
           <Switch>
             <Route exact path="/" component={PostList}></Route>
-            <Route path="/create" component={PostEditAndCreate}></Route>
+            <Route exact path="/error" component={ErrorPage}></Route>
+            <Route path="/create/post" component={PostEditAndCreate}></Route>
             <Route path="/post/:postId" component={Post}></Route>
             <Route path="/edit/:postId" component={PostEditAndCreate}></Route>
           </Switch>

@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 const Post = () => {
   const history = useHistory();
   const { postId } = useParams();
-  const { loading, posts, setLoading } = useAppContext();
+  const { loading, posts, setLoading, isSignedIn } = useAppContext();
   const [post, setPost] = useState([]);
   const classes = useStyles();
 
@@ -93,17 +93,23 @@ const Post = () => {
               <Button size="small" onClick={handleGoBack}>
                 Go back
               </Button>
-              <GeneralButton
-                color="primary"
-                type="edit"
-                to={{ pathname: `/edit/${post.id}`, post }}
-              />
-              <AlertDialog
-                color="secondary"
-                type="delete"
-                id={post.id}
-                back={true}
-              />
+              {isSignedIn ? (
+                <React.Fragment>
+                  <GeneralButton
+                    color="primary"
+                    type="edit"
+                    to={{ pathname: `/edit/${post.id}`, post }}
+                  />
+                  <AlertDialog
+                    color="secondary"
+                    type="delete"
+                    id={post.id}
+                    back={true}
+                  />
+                </React.Fragment>
+              ) : (
+                <></>
+              )}
             </CardActions>
           </Card>
         </React.Fragment>

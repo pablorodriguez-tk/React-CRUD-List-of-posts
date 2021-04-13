@@ -4,15 +4,14 @@ import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { Button } from "@material-ui/core";
 
 const GoogleAuth = () => {
-  const { isSignedIn, setIsSignedIn, setUser } = useAppContext();
+  const { isSignedIn, setIsSignedIn } = useAppContext();
 
   useEffect(() => {
     // if we have user on local storage, means that we are sign in
     if (!localStorage.getItem("userInfo")) return;
-    const user = JSON.parse(localStorage.getItem("userInfo"));
-    setUser(user);
+    JSON.parse(localStorage.getItem("userInfo"));
     setIsSignedIn(true);
-  }, [setIsSignedIn, setUser]);
+  }, [setIsSignedIn]);
 
   const responseGoogle = (response) => {
     if (!response.error) {

@@ -50,7 +50,7 @@ const PostEditAndCreate = (props) => {
     history.goBack();
   };
 
-  const isCreate = props.match.params.postId === "create";
+  const isCreate = props.location.pathname === "/create/post";
 
   const onSubmit = (input) => {
     const inputData = { title: input.title, body: input.body };
@@ -66,9 +66,7 @@ const PostEditAndCreate = (props) => {
       const response = await updatePost(inputData, post);
       setPosts((prevPosts) => {
         const prevPostIdx = prevPosts.findIndex((p) => p.id === post.id);
-
         prevPosts[prevPostIdx] = response.updatedPost;
-        console.log(prevPosts);
         return [...prevPosts];
       });
       history.push("/");

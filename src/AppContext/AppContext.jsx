@@ -5,7 +5,6 @@ const Provider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(null);
-  const [user, setUser] = useState(null);
 
   const props = {
     posts,
@@ -14,8 +13,6 @@ const Provider = ({ children }) => {
     setLoading,
     isSignedIn,
     setIsSignedIn,
-    user,
-    setUser,
   };
 
   return <AppContext.Provider value={props}>{children}</AppContext.Provider>;

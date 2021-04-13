@@ -11,12 +11,14 @@ import {
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
+import { useAppContext } from "../../AppContext";
 
 const useStyles = makeStyles(() => ({
   menuButton: { marginTop: 5 },
 }));
 
 export default function DrawerLeft() {
+  const { isSignedIn } = useAppContext();
   const classes = useStyles();
   const [state, setState] = React.useState(false);
 
@@ -45,17 +47,16 @@ export default function DrawerLeft() {
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem
-          button
-          key="Create/Edit post"
-          component={Link}
-          to={`/edit/create`}
-        >
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary="Create/Edit post" />
-        </ListItem>
+        {isSignedIn ? (
+          <ListItem button component={Link} to={"/create/post"}>
+            <ListItemIcon>
+              <MailIcon />
+            </ListItemIcon>
+            <ListItemText primary="Create post" />
+          </ListItem>
+        ) : (
+          <></>
+        )}
       </List>
     </div>
   );
