@@ -8,6 +8,7 @@ import GoogleAuth from "../GoogleAuth";
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
   title: {
     flexGrow: 1,
