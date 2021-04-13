@@ -5,7 +5,7 @@ import AlertDialog from "../../components/AlertDialog";
 import { useAppContext } from "../../AppContext";
 import FolderIcon from "@material-ui/icons/Folder";
 import Spinner from "../../components/Spinner";
-import HeroHeader from "../../components/HeroHeader/HeroHeader";
+import { HeroHeader } from "../../components/Header";
 import {
   List,
   ListItem,
@@ -50,7 +50,7 @@ const PostList = () => {
       ) : (
         <React.Fragment>
           <Grid className={classes.root}>
-            <HeroHeader></HeroHeader>
+            <HeroHeader />
             <div className={classes.demo}>
               <List>
                 {posts.map((post) => (

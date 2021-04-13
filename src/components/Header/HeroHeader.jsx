@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: 0,
     },
   },
+  hero: {
+    userSelect: "none",
+  },
 }));
 
 const HeroHeader = () => {
@@ -50,6 +53,7 @@ const HeroHeader = () => {
         <Grid item md={6}>
           <div className={classes.mainFeaturedPostContent}>
             <Typography
+              className={classes.hero}
               component="h1"
               variant="h3"
               color="inherit"
@@ -57,7 +61,12 @@ const HeroHeader = () => {
             >
               BLOG
             </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
+            <Typography
+              variant="h5"
+              color="inherit"
+              paragraph
+              className={classes.hero}
+            >
               Here you will be able to find the best list of posts from
               Argentina
             </Typography>
