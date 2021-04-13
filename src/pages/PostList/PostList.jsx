@@ -5,6 +5,7 @@ import AlertDialog from "../../components/AlertDialog";
 import { useAppContext } from "../../AppContext";
 import FolderIcon from "@material-ui/icons/Folder";
 import Spinner from "../../components/Spinner";
+import HeroHeader from "../../components/HeroHeader/HeroHeader";
 import {
   List,
   ListItem,
@@ -12,7 +13,6 @@ import {
   ListItemText,
   Avatar,
   Grid,
-  Typography,
   Divider,
   ListItemSecondaryAction,
   makeStyles,
@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 const PostList = () => {
   const classes = useStyles();
   const { posts, loading } = useAppContext();
-  console.log(posts);
   return (
     <React.Fragment>
       {loading ? (
@@ -51,9 +50,7 @@ const PostList = () => {
       ) : (
         <React.Fragment>
           <Grid className={classes.root}>
-            <Typography variant="h3" className={classes.title}>
-              Posts List
-            </Typography>
+            <HeroHeader></HeroHeader>
             <div className={classes.demo}>
               <List>
                 {posts.map((post) => (

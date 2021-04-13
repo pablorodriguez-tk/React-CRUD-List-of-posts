@@ -3,31 +3,27 @@ import { useAppContext } from "../../AppContext";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 
 const GoogleAuth = () => {
-  const { isSignedIn, setIsSignedIn } = useAppContext();
+  const { isSignedIn, setIsSignedIn, setUser } = useAppContext();
 
   useEffect(() => {
     //if we have user on local storage, means that we are sign in
     const user = JSON.parse(localStorage.getItem("userInfo"));
+    setUser(user);
     if (user) {
       setIsSignedIn(true);
     }
-  }, [setIsSignedIn]);
+  }, [setIsSignedIn, setUser]);
 
   const responseGoogle = (response) => {
     localStorage.setItem("userInfo", JSON.stringify(response.profileObj));
-    console.log(response);
-    console.log(response.profileObj);
+
     setIsSignedIn(true);
-    console.log(isSignedIn);
   };
 
   const logout = () => {
     localStorage.clear();
-    console.log("logout exitoso");
     setIsSignedIn(false);
-    console.log(isSignedIn);
   };
-
   return (
     <React.Fragment>
       {isSignedIn ? (

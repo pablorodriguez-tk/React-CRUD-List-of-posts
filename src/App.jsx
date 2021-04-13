@@ -6,12 +6,23 @@ import { getPosts } from "./api/jsonplaceholder";
 
 import "./App.css";
 import { useAppContext } from "./AppContext";
+import Footer from "./components/Footer";
 import { Header } from "./components/Header";
 import Post from "./pages/Post/Post";
 import PostEditAndCreate from "./pages/PostEditAndCreate";
 import PostList from "./pages/PostList";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "99vh",
+  },
+}));
 
 const App = () => {
+  const classes = useStyles();
   const { setPosts, setLoading } = useAppContext();
 
   useEffect(() => {
@@ -30,6 +41,7 @@ const App = () => {
     <React.Fragment>
       <CssBaseline />
       <Grid
+        className={classes.root}
         container
         justify="center"
         alignItems="center"
@@ -45,7 +57,7 @@ const App = () => {
             <Route path="/edit/:postId" component={PostEditAndCreate}></Route>
           </Switch>
         </BrowserRouter>
-        {/* <Footer /> */}
+        <Footer />
       </Grid>
     </React.Fragment>
   );
