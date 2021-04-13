@@ -15,7 +15,7 @@ import {
 const AlertDialog = (props) => {
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
-  const { posts, setPosts } = useAppContext();
+  const { posts, setPosts, setLoading } = useAppContext();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,12 +26,14 @@ const AlertDialog = (props) => {
   };
 
   const handleAgree = async () => {
+    setLoading(true);
     setOpen(false);
     await deletePosts(props.id);
     setPosts(posts.filter((item) => item.id !== props.id));
     if (props.back === true) {
       history.push("/");
     }
+    setLoading(false);
   };
 
   return (

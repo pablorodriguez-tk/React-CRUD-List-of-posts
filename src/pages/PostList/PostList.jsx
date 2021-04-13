@@ -24,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 1000,
     width: "100%",
   },
-  spinner: {
-    top: 100,
-  },
   demo: {
     backgroundColor: theme.palette.background.paper,
   },

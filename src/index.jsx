@@ -11,3 +11,6 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
+
+//Ver funcionamiento de pagina error
+// anadir dark mode
