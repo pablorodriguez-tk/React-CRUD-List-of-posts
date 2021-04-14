@@ -14,6 +14,7 @@ import PostList from "./pages/PostList";
 
 import ErrorPage from "./pages/ErrorPage";
 import { ThemeProvider, makeStyles } from "@material-ui/core";
+import { blue, deepPurple, pink } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -31,9 +32,12 @@ const App = () => {
   const theme = createMuiTheme({
     palette: {
       type: darkMode ? "dark" : "light",
+      primary: blue,
+      secondary: pink,
     },
   });
 
+  console.log(theme);
   useEffect(() => {
     setLoading(true);
 
