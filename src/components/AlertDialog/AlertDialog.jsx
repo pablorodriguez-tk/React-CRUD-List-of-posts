@@ -28,10 +28,14 @@ const AlertDialog = (props) => {
   const handleAgree = async () => {
     setLoading(true);
     setOpen(false);
-    await deletePosts(props.id);
-    setPosts(posts.filter((item) => item.id !== props.id));
-    if (props.back === true) {
-      history.push("/");
+    const response = await deletePosts(props.id);
+    if (response.hasError) {
+      history.push("/error");
+    } else {
+      setPosts(posts.filter((item) => item.id !== props.id));
+      if (props.back === true) {
+        history.push("/");
+      }
     }
     setLoading(false);
   };

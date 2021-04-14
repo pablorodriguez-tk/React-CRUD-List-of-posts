@@ -48,7 +48,8 @@ const Post = () => {
   const handeGetPostById = async (postId) => {
     setLoading(true);
     const response = await getPostById(postId);
-    setPost(response.post);
+    response.hasError ? history.push("/error") : setPost(response.post);
+
     setLoading(false);
   };
 

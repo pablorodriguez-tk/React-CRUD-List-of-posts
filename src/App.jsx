@@ -1,6 +1,6 @@
 import { CssBaseline, Grid } from "@material-ui/core";
 import React, { useEffect } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, useHistory } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { getPosts } from "./api/jsonplaceholder";
 
@@ -25,18 +25,20 @@ const useStyles = makeStyles(() => ({
 const App = () => {
   const classes = useStyles();
   const { setPosts, setLoading } = useAppContext();
+  const history = useHistory();
 
   useEffect(() => {
     setLoading(true);
 
     const handleGetPosts = async () => {
       const response = await getPosts();
-      setPosts(response.posts);
+      response.hasError ? history.push("/error") : setPosts(response.posts);
     };
+
     handleGetPosts();
 
     setLoading(false);
-  }, [setPosts, setLoading]);
+  }, [setPosts, setLoading, history]);
 
   return (
     <React.Fragment>
@@ -57,6 +59,7 @@ const App = () => {
             <Route path="/create/post" component={PostEditAndCreate}></Route>
             <Route path="/post/:postId" component={Post}></Route>
             <Route path="/edit/:postId" component={PostEditAndCreate}></Route>
+            <Route component={ErrorPage}></Route>
           </Switch>
         </BrowserRouter>
         <Footer />

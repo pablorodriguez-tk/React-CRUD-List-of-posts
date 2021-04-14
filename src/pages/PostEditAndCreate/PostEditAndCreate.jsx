@@ -60,20 +60,28 @@ const PostEditAndCreate = (props) => {
       setLoading(true);
       const createData = { userId: 1, ...inputData };
       const response = await createPost(createData);
-      setPosts((prevPosts) => [response.createdPost, ...prevPosts]);
-      history.push("/");
+      if (response.hasError) {
+        history.push("/error");
+      } else {
+        setPosts((prevPosts) => [response.createdPost, ...prevPosts]);
+        history.push("/");
+      }
       setLoading(false);
     };
 
     const handleUpdate = async () => {
       const response = await updatePost(inputData, post);
-      setPosts((prevPosts) => {
-        setLoading(true);
-        const prevPostIdx = prevPosts.findIndex((p) => p.id === post.id);
-        prevPosts[prevPostIdx] = response.updatedPost;
-        return [...prevPosts];
-      });
-      history.push("/");
+      if (response.hasError) {
+        history.push("/error");
+      } else {
+        setPosts((prevPosts) => {
+          setLoading(true);
+          const prevPostIdx = prevPosts.findIndex((p) => p.id === post.id);
+          prevPosts[prevPostIdx] = response.updatedPost;
+          return [...prevPosts];
+        });
+        history.push("/");
+      }
       setLoading(false);
     };
 
@@ -169,7 +177,7 @@ const PostEditAndCreate = (props) => {
                 </Grid>
               </form>
             </div>
-          </Container>{" "}
+          </Container>
         </React.Fragment>
       )}
     </React.Fragment>
