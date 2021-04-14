@@ -20,6 +20,7 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     maxWidth: "60%",
+    marginTop: 20,
   },
   bullet: {
     display: "inline-block",
@@ -74,9 +75,6 @@ const Post = () => {
         <Spinner />
       ) : (
         <React.Fragment>
-          <Typography variant="h3" className={classes.pagetitle}>
-            Post
-          </Typography>
           <Card className={classes.root}>
             <CardContent>
               <Typography variant="h5" component="h2" className={classes.title}>

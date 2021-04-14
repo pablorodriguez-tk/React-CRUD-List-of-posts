@@ -5,6 +5,7 @@ const Provider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(null);
+  const [darkMode, setDarkMode] = useState(false);
 
   const props = {
     posts,
@@ -13,6 +14,8 @@ const Provider = ({ children }) => {
     setLoading,
     isSignedIn,
     setIsSignedIn,
+    darkMode,
+    setDarkMode,
   };
 
   return <AppContext.Provider value={props}>{children}</AppContext.Provider>;

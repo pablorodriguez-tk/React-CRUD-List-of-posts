@@ -1,4 +1,4 @@
-import { CssBaseline, Grid } from "@material-ui/core";
+import { createMuiTheme, CssBaseline, Grid } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { Route, Switch, useHistory } from "react-router";
 import { BrowserRouter } from "react-router-dom";
@@ -11,8 +11,9 @@ import { Header } from "./components/Header";
 import Post from "./pages/Post/Post";
 import PostEditAndCreate from "./pages/PostEditAndCreate";
 import PostList from "./pages/PostList";
-import { makeStyles } from "@material-ui/core/styles";
+
 import ErrorPage from "./pages/ErrorPage";
+import { ThemeProvider, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -24,8 +25,14 @@ const useStyles = makeStyles(() => ({
 
 const App = () => {
   const classes = useStyles();
-  const { setPosts, setLoading } = useAppContext();
   const history = useHistory();
+  const { setPosts, setLoading, darkMode } = useAppContext();
+
+  const theme = createMuiTheme({
+    palette: {
+      type: darkMode ? "dark" : "light",
+    },
+  });
 
   useEffect(() => {
     setLoading(true);
@@ -42,28 +49,30 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <CssBaseline />
-      <Grid
-        className={classes.root}
-        container
-        justify="center"
-        alignItems="center"
-        direction="column"
-        spacing={2}
-      >
-        <BrowserRouter>
-          <Header />
-          <Switch>
-            <Route exact path="/" component={PostList}></Route>
-            <Route exact path="/error" component={ErrorPage}></Route>
-            <Route path="/create/post" component={PostEditAndCreate}></Route>
-            <Route path="/post/:postId" component={Post}></Route>
-            <Route path="/edit/:postId" component={PostEditAndCreate}></Route>
-            <Route component={ErrorPage}></Route>
-          </Switch>
-        </BrowserRouter>
-        <Footer />
-      </Grid>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Grid
+          className={classes.root}
+          container
+          justify="center"
+          alignItems="center"
+          direction="column"
+          spacing={2}
+        >
+          <BrowserRouter>
+            <Header />
+            <Switch>
+              <Route exact path="/" component={PostList}></Route>
+              <Route exact path="/error" component={ErrorPage}></Route>
+              <Route path="/create/post" component={PostEditAndCreate}></Route>
+              <Route path="/post/:postId" component={Post}></Route>
+              <Route path="/edit/:postId" component={PostEditAndCreate}></Route>
+              <Route component={ErrorPage}></Route>
+            </Switch>
+          </BrowserRouter>
+          <Footer />
+        </Grid>
+      </ThemeProvider>
     </React.Fragment>
   );
 };
