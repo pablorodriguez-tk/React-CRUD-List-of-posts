@@ -27,7 +27,6 @@ const DrawerLeft = () => {
   const [state, setState] = React.useState(false);
 
   const toggleDrawer = (anchor, open) => (event) => {
-    console.log(anchor);
     if (
       event &&
       event.type === "keydown" &&
@@ -68,12 +67,12 @@ const DrawerLeft = () => {
   return (
     <div>
       {["left"].map((anchor) => (
-        <React.Fragment>
+        <React.Fragment key={anchor}>
           <ButtonBase
             onClick={toggleDrawer(anchor, true)}
             className={classes.menuButton}
           >
-            <MenuIcon key={anchor}> {anchor}</MenuIcon>
+            <MenuIcon> {anchor}</MenuIcon>
           </ButtonBase>
           <SwipeableDrawer
             anchor={anchor}

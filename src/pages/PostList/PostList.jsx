@@ -56,7 +56,7 @@ const PostList = ({ posts, paginate, currentPage }) => {
               <div className={classes.demo}>
                 <List>
                   {posts.map((post) => (
-                    <React.Fragment>
+                    <React.Fragment key={post.id}>
                       <ListItem
                         button
                         className={classes.text}
