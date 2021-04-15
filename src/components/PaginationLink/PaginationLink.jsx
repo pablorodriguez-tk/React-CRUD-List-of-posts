@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PaginationLink({ paginate, currentPage }) {
+const PaginationLink = ({ paginate, currentPage }) => {
   const classes = useStyles();
 
   const handleChange = (event, value) => {
@@ -27,6 +27,6 @@ function PaginationLink({ paginate, currentPage }) {
       />
     </div>
   );
-}
+};
 
 export default PaginationLink;

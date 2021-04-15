@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     userSelect: "none",
+    marginLeft: 15,
   },
 }));
 
@@ -34,14 +35,7 @@ const Header = () => {
       <ElevationScroll>
         <AppBar position="relative">
           <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-            >
-              <DrawerLeft />
-            </IconButton>
+            <DrawerLeft />
             <Typography variant="h6" className={classes.title}>
               Blog
             </Typography>

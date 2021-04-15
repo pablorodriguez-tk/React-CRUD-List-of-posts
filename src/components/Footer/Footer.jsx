@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 
-function Copyright() {
+const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary">
       {"Copyright © "}
@@ -14,7 +14,7 @@ function Copyright() {
       {new Date().getFullYear()}
     </Typography>
   );
-}
+};
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Footer() {
+const Footer = () => {
   const classes = useStyles();
 
   return (
@@ -39,4 +39,6 @@ export default function Footer() {
       </Container>
     </footer>
   );
-}
+};
+
+export default Footer;

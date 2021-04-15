@@ -7,6 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
   makeStyles,
+  ButtonBase,
 } from "@material-ui/core";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
@@ -14,15 +15,19 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { useAppContext } from "../../AppContext";
 
 const useStyles = makeStyles(() => ({
-  menuButton: { marginTop: 5 },
+  menuButton: {
+    padding: 12,
+    borderRadius: "50%",
+  },
 }));
 
-export default function DrawerLeft() {
+const DrawerLeft = () => {
   const { isSignedIn } = useAppContext();
   const classes = useStyles();
   const [state, setState] = React.useState(false);
 
   const toggleDrawer = (anchor, open) => (event) => {
+    console.log(anchor);
     if (
       event &&
       event.type === "keydown" &&
@@ -63,13 +68,13 @@ export default function DrawerLeft() {
   return (
     <div>
       {["left"].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <MenuIcon
-            className={classes.menuButton}
+        <React.Fragment>
+          <ButtonBase
             onClick={toggleDrawer(anchor, true)}
+            className={classes.menuButton}
           >
-            {anchor}
-          </MenuIcon>
+            <MenuIcon key={anchor}> {anchor}</MenuIcon>
+          </ButtonBase>
           <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}
@@ -82,4 +87,6 @@ export default function DrawerLeft() {
       ))}
     </div>
   );
-}
+};
+
+export default DrawerLeft;
