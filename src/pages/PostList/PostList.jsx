@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import GeneralButton from "../../components/Buttons";
+import PaginationLink from "../../components/PaginationLink";
 import AlertDialog from "../../components/AlertDialog";
 import { useAppContext } from "../../AppContext";
 import FolderIcon from "@material-ui/icons/Folder";
@@ -28,19 +29,20 @@ const useStyles = makeStyles((theme) => ({
   demo: {
     backgroundColor: theme.palette.background.paper,
   },
-  title: {
+  pagination: {
     margin: theme.spacing(2, 2, 2),
-    textAlign: "center",
-    textDecorationLine: "underline",
+    display: "grid",
+    justifyItems: "center",
   },
   text: {
     maxWidth: "85%",
   },
 }));
 
-const PostList = () => {
+const PostList = ({ posts, paginate, currentPage }) => {
   const classes = useStyles();
-  const { posts, loading, isSignedIn } = useAppContext();
+
+  const { loading, isSignedIn } = useAppContext();
 
   return (
     <React.Fragment>
@@ -92,6 +94,9 @@ const PostList = () => {
                 </List>
               </div>
             </Zoom>
+            <div className={classes.pagination}>
+              <PaginationLink paginate={paginate} currentPage={currentPage} />
+            </div>
           </Grid>
         </React.Fragment>
       )}

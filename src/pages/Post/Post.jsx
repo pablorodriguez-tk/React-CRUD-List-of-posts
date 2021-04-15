@@ -40,10 +40,10 @@ const useStyles = makeStyles({
   body: {},
 });
 
-const Post = () => {
+const Post = ({ posts }) => {
   const history = useHistory();
   const { postId } = useParams();
-  const { loading, posts, setLoading, isSignedIn } = useAppContext();
+  const { loading, setLoading, isSignedIn } = useAppContext();
   const [post, setPost] = useState([]);
   const classes = useStyles();
 

@@ -1,5 +1,5 @@
 import { createMuiTheme, CssBaseline, Grid } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { getPosts } from "./api/jsonplaceholder";
@@ -26,7 +26,9 @@ const useStyles = makeStyles(() => ({
 const App = () => {
   const classes = useStyles();
   const history = useHistory();
-  const { setPosts, setLoading, darkMode } = useAppContext();
+  const { posts, setPosts, setLoading, darkMode } = useAppContext();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
 
   const theme = createMuiTheme({
     palette: {
@@ -36,19 +38,25 @@ const App = () => {
     },
   });
 
-  console.log(theme);
   useEffect(() => {
     setLoading(true);
-
     const handleGetPosts = async () => {
       const response = await getPosts();
       response.hasError ? history.push("/error") : setPosts(response.posts);
     };
-
     handleGetPosts();
-
     setLoading(false);
-  }, [setPosts, setLoading, history]);
+  }, [history, setLoading]);
+
+  // Get Current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <React.Fragment>
@@ -65,10 +73,25 @@ const App = () => {
           <BrowserRouter>
             <Header />
             <Switch>
-              <Route exact path="/" component={PostList}></Route>
+              <Route
+                exact
+                path="/"
+                component={() => (
+                  <PostList
+                    posts={currentPosts}
+                    postsPerPage={postsPerPage}
+                    totalPosts={posts.length}
+                    paginate={paginate}
+                    currentPage={currentPage}
+                  />
+                )}
+              ></Route>
               <Route exact path="/error" component={ErrorPage}></Route>
               <Route path="/create/post" component={PostEditAndCreate}></Route>
-              <Route path="/post/:postId" component={Post}></Route>
+              <Route
+                path="/post/:postId"
+                component={() => <Post posts={posts} />}
+              ></Route>
               <Route path="/edit/:postId" component={PostEditAndCreate}></Route>
               <Route component={ErrorPage}></Route>
             </Switch>

@@ -63,7 +63,6 @@ export const updatePost = async (data, post) => {
       `https://jsonplaceholder.typicode.com/posts/${post.id}`,
       data
     );
-    console.log(response);
     return {
       hasError: false,
       updatedPost: response.data,
