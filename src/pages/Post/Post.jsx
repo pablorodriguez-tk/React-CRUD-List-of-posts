@@ -14,6 +14,7 @@ import {
   CardActions,
   Card,
   makeStyles,
+  Zoom,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -75,42 +76,48 @@ const Post = () => {
         <Spinner />
       ) : (
         <React.Fragment>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography variant="h5" component="h2" className={classes.title}>
-                {post.title}
-              </Typography>
-              <Typography
-                variant="body2"
-                component="p"
-                className={classes.body}
-              >
-                {post.body}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small" onClick={handleGoBack}>
-                Go back
-              </Button>
-              {isSignedIn ? (
-                <React.Fragment>
-                  <GeneralButton
-                    color="primary"
-                    type="edit"
-                    to={{ pathname: `/edit/${post.id}`, post }}
-                  />
-                  <AlertDialog
-                    color="secondary"
-                    type="delete"
-                    id={post.id}
-                    back={true}
-                  />
-                </React.Fragment>
-              ) : (
-                <></>
-              )}
-            </CardActions>
-          </Card>
+          <Zoom in={true} timeout={700}>
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography
+                  variant="h5"
+                  component="h2"
+                  className={classes.title}
+                >
+                  {post.title}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  component="p"
+                  className={classes.body}
+                >
+                  {post.body}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small" onClick={handleGoBack}>
+                  Go back
+                </Button>
+                {isSignedIn ? (
+                  <React.Fragment>
+                    <GeneralButton
+                      color="primary"
+                      type="edit"
+                      to={{ pathname: `/edit/${post.id}`, post }}
+                    />
+                    <AlertDialog
+                      color="secondary"
+                      type="delete"
+                      id={post.id}
+                      back={true}
+                    />
+                  </React.Fragment>
+                ) : (
+                  <></>
+                )}
+              </CardActions>
+            </Card>
+          </Zoom>
         </React.Fragment>
       )}
     </React.Fragment>

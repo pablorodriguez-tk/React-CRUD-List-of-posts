@@ -4,7 +4,6 @@ import { Route, Switch, useHistory } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { getPosts } from "./api/jsonplaceholder";
 
-import "./App.css";
 import { useAppContext } from "./AppContext";
 import Footer from "./components/Footer";
 import { Header } from "./components/Header";
@@ -14,7 +13,7 @@ import PostList from "./pages/PostList";
 
 import ErrorPage from "./pages/ErrorPage";
 import { ThemeProvider, makeStyles } from "@material-ui/core";
-import { blue, deepPurple, pink } from "@material-ui/core/colors";
+import { blue, pink } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(() => ({
   root: {

@@ -16,6 +16,7 @@ import {
   Divider,
   ListItemSecondaryAction,
   makeStyles,
+  Zoom,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,46 +50,48 @@ const PostList = () => {
         <React.Fragment>
           <Grid className={classes.root}>
             <HeroHeader />
-            <div className={classes.demo}>
-              <List>
-                {posts.map((post) => (
-                  <React.Fragment key={post.id}>
-                    <ListItem
-                      button
-                      className={classes.text}
-                      component={Link}
-                      to={`/post/${post.id}`}
-                      state={post.id}
-                    >
-                      <ListItemAvatar>
-                        <Avatar>
-                          <FolderIcon />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary={post.title} />
-                      {isSignedIn ? (
-                        <ListItemSecondaryAction>
-                          <GeneralButton
-                            color="primary"
-                            type="edit"
-                            to={{ pathname: `/edit/${post.id}`, post }}
-                          />
-                          <AlertDialog
-                            color="secondary"
-                            type="delete"
-                            id={post.id}
-                            back={false}
-                          />
-                        </ListItemSecondaryAction>
-                      ) : (
-                        ""
-                      )}
-                    </ListItem>
-                    <Divider />
-                  </React.Fragment>
-                ))}
-              </List>
-            </div>
+            <Zoom in={true} timeout={500}>
+              <div className={classes.demo}>
+                <List>
+                  {posts.map((post) => (
+                    <React.Fragment>
+                      <ListItem
+                        button
+                        className={classes.text}
+                        component={Link}
+                        to={`/post/${post.id}`}
+                        state={post.id}
+                      >
+                        <ListItemAvatar>
+                          <Avatar>
+                            <FolderIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={post.title} />
+                        {isSignedIn ? (
+                          <ListItemSecondaryAction>
+                            <GeneralButton
+                              color="primary"
+                              type="edit"
+                              to={{ pathname: `/edit/${post.id}`, post }}
+                            />
+                            <AlertDialog
+                              color="secondary"
+                              type="delete"
+                              id={post.id}
+                              back={false}
+                            />
+                          </ListItemSecondaryAction>
+                        ) : (
+                          ""
+                        )}
+                      </ListItem>
+                      <Divider />
+                    </React.Fragment>
+                  ))}
+                </List>
+              </div>
+            </Zoom>
           </Grid>
         </React.Fragment>
       )}

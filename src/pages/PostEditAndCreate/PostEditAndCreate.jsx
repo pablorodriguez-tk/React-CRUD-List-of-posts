@@ -9,6 +9,7 @@ import {
   makeStyles,
   Container,
   Button,
+  Zoom,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import Spinner from "../../components/Spinner";
@@ -98,86 +99,88 @@ const PostEditAndCreate = (props) => {
         <Spinner />
       ) : (
         <React.Fragment>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-              <Avatar className={classes.avatar}>
-                <EditIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                {isCreate ? "Create Post" : "Edit Post"}
-              </Typography>
-              <form
-                className={classes.form}
-                noValidate
-                onSubmit={handleSubmit(onSubmit)}
-              >
-                <Controller
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Post Title"
-                      variant="outlined"
-                      fullWidth
-                      margin="normal"
-                      id="Post Title"
-                      autoFocus
-                      type="text"
-                      multiline={true}
-                      error={errors.title}
-                      helperText={errors.title && "Post title is required"}
-                    />
-                  )}
-                  rules={{ required: true }}
-                  name="title"
-                  control={control}
-                  defaultValue={post ? post.title : ""}
-                />
-                <Controller
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Post Body"
-                      variant="outlined"
-                      fullWidth
-                      margin="normal"
-                      id="Post Body"
-                      type="text"
-                      multiline={true}
-                      error={errors.body}
-                      helperText={errors.body && "Post body is required"}
-                    />
-                  )}
-                  rules={{ required: true }}
-                  name="body"
-                  control={control}
-                  defaultValue={post ? post.body : ""}
-                />
-                <Grid container justify="space-between">
-                  <Grid item xs={3}>
-                    <Button
-                      className={classes.submit}
-                      variant="contained"
-                      onClick={handleGoBack}
-                    >
-                      Go Back
-                    </Button>
+          <Zoom in={true} timeout={700}>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                  <EditIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  {isCreate ? "Create Post" : "Edit Post"}
+                </Typography>
+                <form
+                  className={classes.form}
+                  noValidate
+                  onSubmit={handleSubmit(onSubmit)}
+                >
+                  <Controller
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        label="Post Title"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        id="Post Title"
+                        autoFocus
+                        type="text"
+                        multiline={true}
+                        error={errors.title}
+                        helperText={errors.title && "Post title is required"}
+                      />
+                    )}
+                    rules={{ required: true }}
+                    name="title"
+                    control={control}
+                    defaultValue={post ? post.title : ""}
+                  />
+                  <Controller
+                    render={({ field }) => (
+                      <TextField
+                        {...field}
+                        label="Post Body"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        id="Post Body"
+                        type="text"
+                        multiline={true}
+                        error={errors.body}
+                        helperText={errors.body && "Post body is required"}
+                      />
+                    )}
+                    rules={{ required: true }}
+                    name="body"
+                    control={control}
+                    defaultValue={post ? post.body : ""}
+                  />
+                  <Grid container justify="space-between">
+                    <Grid item xs={3}>
+                      <Button
+                        className={classes.submit}
+                        variant="contained"
+                        onClick={handleGoBack}
+                      >
+                        Go Back
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                      >
+                        Submit
+                      </Button>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      className={classes.submit}
-                    >
-                      Submit
-                    </Button>
-                  </Grid>
-                </Grid>
-              </form>
-            </div>
-          </Container>
+                </form>
+              </div>
+            </Container>
+          </Zoom>
         </React.Fragment>
       )}
     </React.Fragment>

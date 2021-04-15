@@ -48,6 +48,7 @@ const AlertDialog = (props) => {
         onClick={handleClickOpen}
         to={props.to}
       />
+
       <Dialog
         open={open}
         onClose={handleClose}
@@ -57,6 +58,7 @@ const AlertDialog = (props) => {
         <DialogTitle id="alert-dialog-title">
           {"Confirm DELETE Action"}
         </DialogTitle>
+
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             You sure to permanently delete post {props.id}?
