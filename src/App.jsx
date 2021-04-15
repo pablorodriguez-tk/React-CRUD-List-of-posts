@@ -46,7 +46,7 @@ const App = () => {
     };
     handleGetPosts();
     setLoading(false);
-  }, [history, setLoading]);
+  }, [history, setLoading, setPosts]);
 
   // Get Current posts
   const indexOfLastPost = currentPage * postsPerPage;

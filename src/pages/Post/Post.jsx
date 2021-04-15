@@ -47,15 +47,15 @@ const Post = ({ posts }) => {
   const [post, setPost] = useState([]);
   const classes = useStyles();
 
-  const handeGetPostById = async (postId) => {
-    setLoading(true);
-    const response = await getPostById(postId);
-    response.hasError ? history.push("/error") : setPost(response.post);
-
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const handeGetPostById = async (postId) => {
+      setLoading(true);
+      const response = await getPostById(postId);
+      response.hasError ? history.push("/error") : setPost(response.post);
+
+      setLoading(false);
+    };
+
     const findPost = posts.find(({ id }) => id === parseInt(postId));
     if (findPost) {
       setPost(findPost);
@@ -63,8 +63,7 @@ const Post = ({ posts }) => {
     if (!findPost) {
       handeGetPostById(postId);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setPost, history, setLoading, postId, posts]);
 
   const handleGoBack = () => {
     history.goBack();
